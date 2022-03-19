@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Cube/Scenes/Gameplay.unity
     guid: f2d257d6aa5a94744a0d0412f5871479
+  - enabled: 1
+    path: Assets/Cube/Scenes/LevelEditor.unity
+    guid: e9596b6d1ebf6fb4891f55710d59344e
   m_configObjects: {}

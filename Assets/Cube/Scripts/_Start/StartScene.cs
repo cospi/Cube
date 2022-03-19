@@ -6,10 +6,11 @@ namespace Cube.Start
 {
     public sealed class StartScene : GameScene
     {
-        public static readonly string[] NamesOfScenesToLoad =
+        private static readonly string[] NamesOfScenesToLoad =
         {
             SceneNames.MainMenu,
-            SceneNames.Gameplay
+            SceneNames.Gameplay,
+            SceneNames.LevelEditor
         };
 
         [SerializeField]

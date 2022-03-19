@@ -10,16 +10,16 @@ namespace Cube.Gameplay
         [SerializeField]
         private Button _exitButton = null;
 
-        public override void OnAfterActivate(object data) { }
-
-        public override void OnBeforeDeactivate(object data) { }
-
         public override void OnAfterLoad(object data)
         {
             InitExitButton();
         }
 
         public override void OnBeforeUnload(object data) { }
+
+        public override void OnAfterActivate(object data) { }
+
+        public override void OnBeforeDeactivate(object data) { }
 
         private void InitExitButton()
         {

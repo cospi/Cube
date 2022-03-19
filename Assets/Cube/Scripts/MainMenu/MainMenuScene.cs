@@ -9,17 +9,20 @@ namespace Cube.MainMenu
     {
         [SerializeField]
         private Button _playButton = null;
-
-        public override void OnAfterActivate(object data) { }
-
-        public override void OnBeforeDeactivate(object data) { }
+        [SerializeField]
+        private Button _levelEditorButton = null;
 
         public override void OnAfterLoad(object data)
         {
             InitPlayButton();
+            InitLevelEditorButton();
         }
 
         public override void OnBeforeUnload(object data) { }
+
+        public override void OnAfterActivate(object data) { }
+
+        public override void OnBeforeDeactivate(object data) { }
 
         private void InitPlayButton()
         {
@@ -28,10 +31,23 @@ namespace Cube.MainMenu
             onClick.AddListener(MoveToGameplayScene);
         }
 
+        private void InitLevelEditorButton()
+        {
+            Button.ButtonClickedEvent onClick = _levelEditorButton.onClick;
+            onClick.RemoveAllListeners();
+            onClick.AddListener(MoveToLevelEditorScene);
+        }
+
         private void MoveToGameplayScene()
         {
             GameSceneManager.DeactivateGameScene(this, null);
             GameSceneManager.ActivateGameScene(GameSceneManager.GetLoadedGameScene(SceneNames.Gameplay), null);
+        }
+
+        private void MoveToLevelEditorScene()
+        {
+            GameSceneManager.DeactivateGameScene(this, null);
+            GameSceneManager.ActivateGameScene(GameSceneManager.GetLoadedGameScene(SceneNames.LevelEditor), null);
         }
     }
 }
