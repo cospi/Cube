@@ -15,7 +15,7 @@ namespace Cube.LevelEditor
     {
         public sealed class ActivateData
         {
-            public readonly bool TriggerInit;
+            public readonly bool TriggerInit = false;
 
             public ActivateData(bool triggerInit)
             {
@@ -25,7 +25,7 @@ namespace Cube.LevelEditor
 
         public sealed class DeactivateData
         {
-            public readonly bool TriggerFini;
+            public readonly bool TriggerFini = false;
 
             public DeactivateData(bool triggerFini)
             {

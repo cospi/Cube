@@ -12,7 +12,7 @@ namespace Cube.LevelSelection
     {
         public sealed class ActivateData
         {
-            public readonly bool TriggerInit;
+            public readonly bool TriggerInit = false;
 
             public ActivateData(bool triggerInit)
             {
@@ -22,7 +22,7 @@ namespace Cube.LevelSelection
 
         public sealed class DeactivateData
         {
-            public readonly bool TriggerFini;
+            public readonly bool TriggerFini = false;
 
             public DeactivateData(bool triggerFini)
             {

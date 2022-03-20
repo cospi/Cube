@@ -11,7 +11,8 @@ namespace Cube.Start
             SceneNames.MainMenu,
             SceneNames.LevelSelection,
             SceneNames.Gameplay,
-            SceneNames.LevelEditor
+            SceneNames.LevelEditor,
+            SceneNames.Result
         };
 
         [SerializeField]

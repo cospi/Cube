@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using Cube.Level;
+using Cube.Result;
 using Cube.SceneManagement;
 using Cube.Utils;
 
@@ -13,13 +14,13 @@ namespace Cube.Gameplay
         {
             public readonly LevelData Level = null;
             public readonly GameScene ExitScene = null;
-            public readonly object ExitData = null;
+            public readonly object ExitSceneActivateData = null;
 
-            public ActivateData(LevelData level, GameScene exitScene, object exitData)
+            public ActivateData(LevelData level, GameScene exitScene, object exitSceneActivateData)
             {
                 Level = level;
                 ExitScene = exitScene;
-                ExitData = exitData;
+                ExitSceneActivateData = exitSceneActivateData;
             }
         }
 
@@ -33,7 +34,7 @@ namespace Cube.Gameplay
         private ControlPad _controlPad = null;
 
         private GameScene _exitScene = null;
-        private object _exitData = null;
+        private object _exitSceneActivateData = null;
 
         public override void OnAfterLoad(object data)
         {
@@ -52,24 +53,37 @@ namespace Cube.Gameplay
             }
 
             _exitScene = activateData.ExitScene;
-            _exitData = activateData.ExitData;
-            _levelView.Init(
-                activateData.Level,
-                Core.Instance.ServiceManager.GetService<TileSetService>().TileSet,
-                Core.Instance.ServiceManager.GetService<TileSetService>().GameplayMaterial
-            );
-            _playerController.Init(activateData.Level);
+            _exitSceneActivateData = activateData.ExitSceneActivateData;
+            InitLevelView(activateData.Level);
+            _playerController.Init(activateData.Level, OnLevelEnded);
             _controlPad.Init(_playerController);
         }
 
         public override void OnBeforeDeactivate(object data)
         {
             _levelView.Fini();
+            _playerController.Fini();
         }
 
         private void Exit()
         {
-            GameSceneManager.MoveFromToGameScene(this, null, _exitScene, _exitData);
+            GameSceneManager.MoveFromToGameScene(this, null, _exitScene, _exitSceneActivateData);
+        }
+
+        private void InitLevelView(LevelData level)
+        {
+            TileSetService tileSetService = Core.Instance.ServiceManager.GetService<TileSetService>();
+            _levelView.Init(level, tileSetService.TileSet, tileSetService.GameplayMaterial);
+        }
+
+        private void OnLevelEnded(bool levelCompleted)
+        {
+            GameSceneManager.MoveFromToGameScene(
+                this,
+                null,
+                SceneNames.Result,
+                new ResultScene.ActivateData(levelCompleted, _exitScene, _exitSceneActivateData)
+            );
         }
     }
 }

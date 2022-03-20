@@ -7,5 +7,6 @@ namespace Cube.SceneManagement
         public const string LevelSelection = "LevelSelection";
         public const string Gameplay = "Gameplay";
         public const string LevelEditor = "LevelEditor";
+        public const string Result = "Result";
     }
 }
