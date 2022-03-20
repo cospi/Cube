@@ -690,3 +690,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _loadingView: {fileID: 839978282}
   _errorView: {fileID: 1035184246}
+--- !u!1001 &1646168142790943995
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1646168142954586449, guid: bf81020f6185f6f45bdac44ff9d3c130, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646168142954586449, guid: bf81020f6185f6f45bdac44ff9d3c130, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646168142954586449, guid: bf81020f6185f6f45bdac44ff9d3c130, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646168142954586449, guid: bf81020f6185f6f45bdac44ff9d3c130, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646168142954586450, guid: bf81020f6185f6f45bdac44ff9d3c130, type: 3}
+      propertyPath: m_Name
+      value: Core
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bf81020f6185f6f45bdac44ff9d3c130, type: 3}

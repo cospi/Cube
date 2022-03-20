@@ -1,7 +1,6 @@
 using System;
 
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 using Cube.Level;
@@ -19,7 +18,7 @@ namespace Cube.LevelEditor
         public Camera Camera = null;
 
         [NonSerialized]
-        public TileType TileType = default(TileType);
+        public Tile Tile = default(Tile);
 
         private LevelData _level = null;
         private bool _pointerDown = false;
@@ -34,6 +33,14 @@ namespace Cube.LevelEditor
             }
 
             _level = level;
+            _pointerDown = false;
+            _paintActive = false;
+            _previousTilePosition = Vector2Int.zero;
+        }
+
+        public void Fini()
+        {
+            _level = null;
             _pointerDown = false;
             _paintActive = false;
             _previousTilePosition = Vector2Int.zero;
@@ -83,7 +90,7 @@ namespace Cube.LevelEditor
             LevelData level = _level;
             if ((level != null) && level.IsValidPosition(tilePosition))
             {
-                level.SetTile(tilePosition, new TileData(TileType));
+                level.SetTile(tilePosition, Tile);
             }
             _previousTilePosition = tilePosition;
         }

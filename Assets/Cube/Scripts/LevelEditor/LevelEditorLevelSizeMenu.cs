@@ -21,8 +21,8 @@ namespace Cube.LevelEditor
 
         private void Awake()
         {
-            SetupInputField(_widthInputField, 0);
-            SetupInputField(_heightInputField, 1);
+            InitInputField(_widthInputField, 0);
+            InitInputField(_heightInputField, 1);
         }
 
         public void Init(LevelData level)
@@ -54,7 +54,7 @@ namespace Cube.LevelEditor
             _heightInputField.text = levelSize.y.ToString();
         }
 
-        private void SetupInputField(TMP_InputField inputField, int sizeComponentIndex)
+        private void InitInputField(TMP_InputField inputField, int sizeComponentIndex)
         {
             TMP_InputField.SubmitEvent onEndEdit = inputField.onEndEdit;
             onEndEdit.RemoveAllListeners();

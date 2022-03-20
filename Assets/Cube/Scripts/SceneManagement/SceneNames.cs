@@ -4,6 +4,7 @@ namespace Cube.SceneManagement
     {
         public const string Start = "_Start";
         public const string MainMenu = "MainMenu";
+        public const string LevelSelection = "LevelSelection";
         public const string Gameplay = "Gameplay";
         public const string LevelEditor = "LevelEditor";
     }

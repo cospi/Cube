@@ -26,13 +26,13 @@ namespace Cube.LevelEditor
 
             LevelEditorTileSelectorItem itemPrefab = _itemPrefab;
             Transform content = _content;
-            Array tileTypes = Enum.GetValues(typeof(TileType));
-            int count = tileTypes.Length;
+            Array tiles = Enum.GetValues(typeof(Tile));
+            int count = tiles.Length;
             List<LevelEditorTileSelectorItem> items = new List<LevelEditorTileSelectorItem>(count);
             for (int i = 0; i < count; ++i)
             {
                 LevelEditorTileSelectorItem item = Instantiate(itemPrefab, content);
-                item.Init(i, (TileType)tileTypes.GetValue(i), OnItemSelected);
+                item.Init(i, (Tile)tiles.GetValue(i), OnItemSelected);
                 items.Add(item);
             }
             _items = items;
@@ -52,18 +52,23 @@ namespace Cube.LevelEditor
                 throw new ArgumentOutOfRangeException(nameof(tileIndex));
             }
 
-            _items[tileIndex].Select();
+            items[tileIndex].Select();
         }
 
-        private void OnItemSelected(int itemIndex, TileType tileType)
+        private void OnItemSelected(int itemIndex, Tile tile)
+        {
+            UpdateSelectedIndicators(itemIndex);
+            _tilePainter.Tile = tile;
+        }
+
+        private void UpdateSelectedIndicators(int selectedIndex)
         {
             List<LevelEditorTileSelectorItem> items = _items;
             int count = items.Count;
             for (int i = 0; i < count; ++i)
             {
-                items[i].SetSelectedIndicatorActive(i == itemIndex);
+                items[i].SetSelectedIndicatorActive(i == selectedIndex);
             }
-            _tilePainter.TileType = tileType;
         }
     }
 }

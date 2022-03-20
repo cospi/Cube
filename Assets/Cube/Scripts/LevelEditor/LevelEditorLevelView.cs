@@ -4,6 +4,7 @@ using UnityEngine;
 
 using Cube.Graphics;
 using Cube.Level;
+using Cube.Utils;
 
 namespace Cube.LevelEditor
 {
@@ -12,16 +13,12 @@ namespace Cube.LevelEditor
         [SerializeField]
         private MeshRenderer _meshRenderer = null;
         [SerializeField]
-        private Material _material = null;
-        [SerializeField]
-        private LevelEditorTileSet _tileSet = null;
-        [SerializeField]
         private RectBatch _rectBatch = null;
 
         private LevelData _level = null;
-        private Material _runtimeMaterial = null;
+        private TileSet _tileSet = null;
 
-        public void Init(LevelData level)
+        public void Init(LevelData level, TileSet tileSet, Material material)
         {
             if (level == null)
             {
@@ -29,16 +26,16 @@ namespace Cube.LevelEditor
             }
 
             _level = level;
+            _tileSet = tileSet;
             InitRectBatch();
-            InitRuntimeMaterial();
             level.OnSizeChanged += OnLevelSizeChanged;
             level.OnTileChanged += OnLevelTileChanged;
+            _meshRenderer.sharedMaterial = material;
         }
 
         public void Fini()
         {
             _rectBatch.Fini();
-            DestroyRuntimeMaterialIfExists();
             UnsubscribeFromLevel();
         }
 
@@ -51,37 +48,24 @@ namespace Cube.LevelEditor
             RefreshRectBatch(rectBatch, level.Tiles, size);
         }
 
-        private void RefreshRectBatch(RectBatch rectBatch, TileData[,] tiles, Vector2Int size)
+        private void RefreshRectBatch(RectBatch rectBatch, Tile[,] tiles, Vector2Int size)
         {
-            LevelEditorTileSet tileSet = _tileSet;
+            TileSet tileSet = _tileSet;
             rectBatch.Begin();
             for (int y = 0; y < size.y; ++y)
             {
                 float yF = (float)y;
                 for (int x = 0; x < size.x; ++x)
                 {
-                    Sprite tileSprite = tileSet.GetTileSprite(tiles[y, x].Type);
+                    Sprite tileSprite = tileSet.GetTileSprite(tiles[y, x]);
                     if (tileSprite != null)
                     {
                         float xF = (float)x;
-                        rectBatch.PushRect(new Rect(xF, yF, 1f, 1f), GetSpriteUVRect(tileSprite));
+                        rectBatch.PushRect(new Rect(xF, yF, 1f, 1f), SpriteUtils.GetSpriteUVRect(tileSprite));
                     }
                 }
             }
             rectBatch.End();
-        }
-
-        private static Rect GetSpriteUVRect(Sprite sprite)
-        {
-            // Starting from the opposite ends guarantees the Min/Max inside the loop will produce the correct result.
-            Vector2 min = new Vector2(float.MaxValue, float.MaxValue);
-            Vector2 max = new Vector2(float.MinValue, float.MinValue);
-            foreach (Vector2 uv in sprite.uv)
-            {
-                min = Vector2.Min(min, uv);
-                max = Vector2.Max(min, uv);
-            }
-            return Rect.MinMaxRect(min.x, min.y, max.x, max.y);
         }
 
         private void OnLevelSizeChanged()
@@ -95,29 +79,6 @@ namespace Cube.LevelEditor
             // Tile change doesn't require re-configuring batch capacity.
             LevelData level = _level;
             RefreshRectBatch(_rectBatch, level.Tiles, level.GetSize());
-        }
-
-        private void InitRuntimeMaterial()
-        {
-            Material runtimeMaterial = _runtimeMaterial;
-            if (runtimeMaterial == null)
-            {
-                MeshRenderer meshRenderer = _meshRenderer;
-                runtimeMaterial = new Material(_material);
-                meshRenderer.sharedMaterial = runtimeMaterial;
-                _runtimeMaterial = runtimeMaterial;
-            }
-            runtimeMaterial.mainTexture = _tileSet.GetTexture();
-        }
-
-        private void DestroyRuntimeMaterialIfExists()
-        {
-            Material runtimeMaterial = _runtimeMaterial;
-            if (runtimeMaterial != null)
-            {
-                Destroy(runtimeMaterial);
-                _runtimeMaterial = null;
-            }
         }
 
         private void UnsubscribeFromLevel()

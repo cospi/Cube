@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 
 using Cube.Level;
+using Cube.Utils;
 
 namespace Cube.LevelEditor
 {
@@ -19,24 +20,22 @@ namespace Cube.LevelEditor
         private GameObject _selectedIndicator = null;
 
         private int _index = 0;
-        private TileType _tileType = default(TileType);
-        private Action<int, TileType> _onSelected = null;
+        private Tile _tile = default(Tile);
+        private Action<int, Tile> _onSelected = null;
 
-        public void Init(int index, TileType tileType, Action<int, TileType> onSelected)
+        public void Init(int index, Tile tile, Action<int, Tile> onSelected)
         {
             _index = index;
-            _tileType = tileType;
+            _tile = tile;
             _onSelected = onSelected;
 
-            _text.text = tileType.ToString();
-            Button.ButtonClickedEvent onClick = _button.onClick;
-            onClick.RemoveAllListeners();
-            onClick.AddListener(Select);
+            _text.text = tile.ToString();
+            ButtonUtils.InitButton(_button, Select);
         }
 
         public void Select()
         {
-            _onSelected?.Invoke(_index, _tileType);
+            _onSelected?.Invoke(_index, _tile);
         }
 
         public void SetSelectedIndicatorActive(bool active)

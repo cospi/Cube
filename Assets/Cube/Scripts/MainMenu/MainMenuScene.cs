@@ -1,7 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+using Cube.LevelEditor;
+using Cube.LevelSelection;
 using Cube.SceneManagement;
+using Cube.Utils;
 
 namespace Cube.MainMenu
 {
@@ -14,8 +17,8 @@ namespace Cube.MainMenu
 
         public override void OnAfterLoad(object data)
         {
-            InitPlayButton();
-            InitLevelEditorButton();
+            ButtonUtils.InitButton(_playButton, MoveToLevelSelectionScene);
+            ButtonUtils.InitButton(_levelEditorButton, MoveToLevelEditorScene);
         }
 
         public override void OnBeforeUnload(object data) { }
@@ -24,30 +27,24 @@ namespace Cube.MainMenu
 
         public override void OnBeforeDeactivate(object data) { }
 
-        private void InitPlayButton()
+        private void MoveToLevelSelectionScene()
         {
-            Button.ButtonClickedEvent onClick = _playButton.onClick;
-            onClick.RemoveAllListeners();
-            onClick.AddListener(MoveToGameplayScene);
-        }
-
-        private void InitLevelEditorButton()
-        {
-            Button.ButtonClickedEvent onClick = _levelEditorButton.onClick;
-            onClick.RemoveAllListeners();
-            onClick.AddListener(MoveToLevelEditorScene);
-        }
-
-        private void MoveToGameplayScene()
-        {
-            GameSceneManager.DeactivateGameScene(this, null);
-            GameSceneManager.ActivateGameScene(GameSceneManager.GetLoadedGameScene(SceneNames.Gameplay), null);
+            GameSceneManager.MoveFromToGameScene(
+                this,
+                null,
+                SceneNames.LevelSelection,
+                new LevelSelectionScene.ActivateData(true)
+            );
         }
 
         private void MoveToLevelEditorScene()
         {
-            GameSceneManager.DeactivateGameScene(this, null);
-            GameSceneManager.ActivateGameScene(GameSceneManager.GetLoadedGameScene(SceneNames.LevelEditor), null);
+            GameSceneManager.MoveFromToGameScene(
+                this,
+                null,
+                SceneNames.LevelEditor,
+                new LevelEditorScene.ActivateData(true)
+            );
         }
     }
 }

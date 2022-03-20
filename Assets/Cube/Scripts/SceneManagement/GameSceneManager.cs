@@ -86,6 +86,7 @@ namespace Cube.SceneManagement
             }
 
             Debug.Log($"Activating scene {gameScene.gameObject.scene.name}.");
+            SceneManager.SetActiveScene(gameScene.gameObject.scene);
             gameScene.gameObject.SetActive(true);
             gameScene.OnAfterActivate(data);
         }
@@ -100,6 +101,27 @@ namespace Cube.SceneManagement
             Debug.Log($"Deactivating scene {gameScene.gameObject.scene.name}.");
             gameScene.OnBeforeDeactivate(data);
             gameScene.gameObject.SetActive(false);
+        }
+
+        public static void MoveFromToGameScene(
+            GameScene fromGameScene,
+            object deactivateData,
+            string toSceneName,
+            object activateData
+        )
+        {
+            MoveFromToGameScene(fromGameScene, deactivateData, GetLoadedGameScene(toSceneName), activateData);
+        }
+
+        public static void MoveFromToGameScene(
+            GameScene fromGameScene,
+            object deactivateData,
+            GameScene toGameScene,
+            object activateData
+        )
+        {
+            DeactivateGameScene(fromGameScene, deactivateData);
+            ActivateGameScene(toGameScene, activateData);
         }
 
         public static GameScene GetLoadedGameScene(string sceneName)
