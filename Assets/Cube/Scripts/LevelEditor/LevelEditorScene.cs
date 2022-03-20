@@ -87,11 +87,7 @@ namespace Cube.LevelEditor
                 _camera.Init();
                 LevelData level = new LevelData(new Vector2Int(10, 10));
                 _level = level;
-                _levelView.Init(
-                    level,
-                    Core.Instance.ServiceManager.GetService<TileSetService>().TileSet,
-                    Core.Instance.ServiceManager.GetService<TileSetService>().LevelEditorMaterial
-                );
+                InitLevelView(level);
                 _grid.Init(level);
                 _levelSizeMenu.Init(level);
                 _tilePainter.Init(level);
@@ -117,6 +113,12 @@ namespace Cube.LevelEditor
                 _levelSizeMenu.Fini();
                 _tilePainter.Fini();
             }
+        }
+
+        private void InitLevelView(LevelData level)
+        {
+            TileSetService tileSetService = Core.Instance.ServiceManager.GetService<TileSetService>();
+            _levelView.Init(level, tileSetService.TileSet, tileSetService.LevelEditorMaterial);
         }
 
         private void MoveToMainMenuScene()

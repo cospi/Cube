@@ -65,11 +65,6 @@ namespace Cube.Gameplay
             _playerController.Fini();
         }
 
-        private void Exit()
-        {
-            GameSceneManager.MoveFromToGameScene(this, null, _exitScene, _exitSceneActivateData);
-        }
-
         private void InitLevelView(LevelData level)
         {
             TileSetService tileSetService = Core.Instance.ServiceManager.GetService<TileSetService>();
@@ -84,6 +79,11 @@ namespace Cube.Gameplay
                 SceneNames.Result,
                 new ResultScene.ActivateData(levelCompleted, _exitScene, _exitSceneActivateData)
             );
+        }
+
+        private void Exit()
+        {
+            GameSceneManager.MoveFromToGameScene(this, null, _exitScene, _exitSceneActivateData);
         }
     }
 }
