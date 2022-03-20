@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Easy
   LevelAssets:
-  - {fileID: 4900000, guid: 12453e4ed33613f47b77ee9a38b141d1, type: 3}
-  - {fileID: 4900000, guid: 12453e4ed33613f47b77ee9a38b141d1, type: 3}
+  - {fileID: 4900000, guid: dbf0245b14ceaba4dbeb88883b4a6e3a, type: 3}
+  - {fileID: 4900000, guid: 18e7c8e67d1d58c448cb3b02a09be801, type: 3}
   - {fileID: 4900000, guid: 12453e4ed33613f47b77ee9a38b141d1, type: 3}
   - {fileID: 4900000, guid: 12453e4ed33613f47b77ee9a38b141d1, type: 3}
