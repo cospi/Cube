@@ -32,14 +32,16 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 18913288629bd354b96610d53c9d3dba, type: 3}
-    totalSpriteSurfaceArea: 65536
+    totalSpriteSurfaceArea: 131072
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 9afa39b16560d354d941e8985525f112, type: 3}
   - {fileID: 21300000, guid: 17bab64ba7579234098c03e892e1b3e1, type: 3}
   m_PackedSpriteNamesToIndex:
+  - Selection
   - Arrow
   m_RenderDataMap: {}
   m_Tag: UISpriteAtlas
