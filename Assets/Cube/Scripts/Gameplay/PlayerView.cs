@@ -63,6 +63,7 @@ namespace Cube.Gameplay
             transform.RotateAround(center, axis, 90f - angle);
 
             Moving = false;
+            _moveRoutine = null;
         }
     }
 }
